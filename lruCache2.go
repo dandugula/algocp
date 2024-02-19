@@ -1,5 +1,9 @@
 package main
-import "container/list"
+
+import (
+	"container/list"
+	"fmt"
+)
 
 
 type LRUCache struct {
@@ -27,18 +31,22 @@ func (c *LRUCache) Get(key int) int {
 }
 
 func (c *LRUCache) isFull() bool {
-    return c.size >= c.capacity
+    return c.size > c.capacity
 }
 
 func (c *LRUCache) Put(key int, value int) {
+    if _, ok := c.store[key]; !ok {
+        c.size++
+    }
+
 	if c.isFull() {
         b := c.list.Back()
         delete(c.store, b.Value.(int))
         c.list.Remove(b)
 		c.size--
 	}
+
 	c.list.PushFront(key)
-	c.size++
 	c.store[key] = value
 }
 /*
