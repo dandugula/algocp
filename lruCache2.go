@@ -2,9 +2,8 @@ package main
 
 import (
 	"container/list"
-	"fmt"
+	//"fmt"
 )
-
 
 type LRUCache struct {
 	capacity int
@@ -18,7 +17,7 @@ func Constructor(capacity int) LRUCache {
 		capacity: capacity,
 		size:     0,
 		store:    map[int]int{},
-        list: list.New(),
+		list:     list.New(),
 	}
 }
 
@@ -31,24 +30,25 @@ func (c *LRUCache) Get(key int) int {
 }
 
 func (c *LRUCache) isFull() bool {
-    return c.size > c.capacity
+	return c.size > c.capacity
 }
 
 func (c *LRUCache) Put(key int, value int) {
-    if _, ok := c.store[key]; !ok {
-        c.size++
-    }
+	if _, ok := c.store[key]; !ok {
+		c.size++
+	}
 
 	if c.isFull() {
-        b := c.list.Back()
-        delete(c.store, b.Value.(int))
-        c.list.Remove(b)
+		b := c.list.Back()
+		delete(c.store, b.Value.(int))
+		c.list.Remove(b)
 		c.size--
 	}
 
 	c.list.PushFront(key)
 	c.store[key] = value
 }
+
 /*
 func (c *LRUCache) printList() {
     q := c.listHead

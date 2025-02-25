@@ -5,7 +5,6 @@ func linear_search(haystack []int, needle int) bool {
         if needle == v {
             return true
         }
-    }
-    return false
+	}
+	return false
 }
-

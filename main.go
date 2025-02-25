@@ -1,6 +1,10 @@
 package main
 
 import "fmt"
+import "context"
+import "time"
+import "runtime"
+
 //import "sync"
 //import "math/rand"
 //import "time"
@@ -141,7 +145,7 @@ func main() {
     }
 }
 */
-
+/*
 func main() {
     lru := Constructor(2)
     fmt.Println(lru.Get(2))
@@ -152,7 +156,6 @@ func main() {
     fmt.Println(lru.Get(1))
     fmt.Println(lru.Get(2))
 }
-/*
 type Node struct {
     v int
 }
@@ -176,3 +179,131 @@ func main () {
     }
 }
 */
+/*
+func main() {
+    fmt.Println("Adding ints: ", add(3, 4))
+    fmt.Println("Adding floats: ", add(3.5, 4.57))
+}
+*/
+/*
+func main() {
+    a,b := setUpViewIdItemIdMap(generateViewIds());
+    /*
+    fmt.Println(len(a))
+    for k, v := range a {
+        fmt.Println(k, ", ", len(v))
+        fmt.Println(v[0])
+        fmt.Println(v[1])
+        break
+    }
+    fmt.Println(len(b))
+    for i := range b {
+        fmt.Println(i)
+        fmt.Println(i+1)
+        break;
+    }
+    count := 0
+    c := make(map[ItemId]struct{})
+
+    for k := range b {
+        if count >= 5000 {
+            break
+        }
+        count++
+        c[k] = struct{}{}
+    }
+    d := setUpItemStatsMap(c)
+    TransformAndProduce(d, a)
+}
+*/
+/*
+func main() {
+	myList := &GenericList[int]{head: nil}
+	//myList = nil
+	myList.add(10)
+	myList.add(20)
+	myList.add(30)
+	fmt.Println(myList.count())
+	myList.add(40)
+	myList.print()
+	fmt.Println()
+	myList.remove()
+	myList.print()
+}
+func main() {
+	a := []int{5, 3, 6, 7, 4}
+	//a := []int{-8}
+	//a := []int{-190, -189}
+	res := maxDiffPriorElem(a)
+	fmt.Println(res)
+}
+
+func main() {
+    deferExp()
+}
+
+func Backward[E any](s []E) func(func(int, E) bool) {
+    return func(yield func(int, E) bool) {
+        for i := len(s)-1; i >= 0; i-- {
+            if !yield(i, s[i]) {
+                return
+            }
+        }
+    }
+}
+func main() {
+//    s := []string{"hello", "world"}
+    in := []int{100, 99}
+    for i, x := range Backward(in) {
+        fmt.Println(i, x)
+    }
+}
+*/
+/*
+func main() {
+    f := fib()
+    fmt.Println(f(), f(), f(), f(), f())
+}
+*/
+type token struct{}
+
+func consumer(ctx context.Context, in <-chan token) {
+	for {
+		select {
+		case <-in:
+			// do stuff
+		case <-time.After(time.Hour):
+			// log warning
+		case <-ctx.Done():
+			return
+		}
+	}
+}
+
+func getAlloc() uint64 {
+	var m runtime.MemStats
+	runtime.GC()
+	runtime.ReadMemStats(&m)
+	return m.Alloc
+}
+
+func main() {
+	ctx, cancel := context.WithCancel(context.Background())
+
+	defer cancel()
+
+	tokens := make(chan token)
+	go consumer(ctx, tokens)
+
+	memBefore := getAlloc()
+
+    for range 100000 {
+        tokens <- token{}
+    }
+
+	memAfter := getAlloc()
+
+    memUsed := memAfter - memBefore
+
+    fmt.Printf("Memory used: %d KB\n", memUsed / 1024)
+}

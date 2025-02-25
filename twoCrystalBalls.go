@@ -1,6 +1,7 @@
 package main
 
 import "math"
+
 /*
 func two_crystal_balls(breaks []bool) int {
     n_sqrt := int(math.Sqrt(float64(len(breaks))))
@@ -27,26 +28,26 @@ func two_crystal_balls(breaks []bool) int {
 
 func two_crystal_balls(breaks [1000]bool) int {
 
-    jmpAmount := int(math.Floor(math.Sqrt(float64(len(breaks)))))
+	jmpAmount := int(math.Floor(math.Sqrt(float64(len(breaks)))))
 
-    i := jmpAmount
+	i := jmpAmount
 
-    for i < len(breaks) {
-        if breaks[i] {
-            break;
-        }
-        i += jmpAmount
-    }
+	for i < len(breaks) {
+		if breaks[i] {
+			break
+		}
+		i += jmpAmount
+	}
 
-    i -= jmpAmount
+	i -= jmpAmount
 
-    for j := 0; j < jmpAmount && i < len(breaks); j++ {
-        if breaks[i] {
-            return i
-        }
-        i++
-    }
+	for j := 0; j < jmpAmount && i < len(breaks); j++ {
+		if breaks[i] {
+			return i
+		}
+		i++
+	}
 
-    return -1
+	return -1
 
 }
