@@ -1,9 +1,10 @@
 package main
 
 import "fmt"
-import "context"
-import "time"
-import "runtime"
+
+// import "context"
+// import "time"
+// import "runtime"
 
 //import "sync"
 //import "math/rand"
@@ -265,6 +266,7 @@ func main() {
     fmt.Println(f(), f(), f(), f(), f())
 }
 */
+/*
 type token struct{}
 
 func consumer(ctx context.Context, in <-chan token) {
@@ -307,3 +309,21 @@ func main() {
 
     fmt.Printf("Memory used: %d KB\n", memUsed / 1024)
 }
+*/
+func main() {
+	n := []int{1, 2, 3}
+	res := permute(n)
+
+	for _, arr := range res {
+		fmt.Println(arr)
+	}
+}
+
+/*
+func main() {
+	ans := solveNQueens(4)
+	for _, arr := range ans {
+		fmt.Println(arr)
+	}
+}
+*/
